@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FlightMobileApp</string>
+    <string name="sim_activity">In simulator activity</string>
 </resources>
