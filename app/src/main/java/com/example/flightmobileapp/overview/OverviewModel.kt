@@ -37,8 +37,10 @@ class OverviewViewModel : ViewModel() {
     }
 
     //test function to make the connection with th UI
-    fun getUsers() : String {
-        return "message from server"
+    fun getUsers() : LiveData<String> {
+        val message = MutableLiveData<String>()
+        message.value = "from get users"
+        return message
     }
 
 
