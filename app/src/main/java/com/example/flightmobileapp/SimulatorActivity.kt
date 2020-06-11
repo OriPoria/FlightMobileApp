@@ -12,7 +12,7 @@ class SimulatorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_simulator)
 
-        //get the string from the server
+        //get the string from the server.
         val vm : OverviewViewModel by viewModels()
         val responseStr = vm.response
         responseStr.observe(this, Observer<String> {s:String? ->serverMsg.text = s })
