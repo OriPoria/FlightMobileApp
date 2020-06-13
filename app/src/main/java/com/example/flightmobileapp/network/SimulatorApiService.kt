@@ -1,15 +1,17 @@
-
 package com.example.flightmobileapp.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
+import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.POST
 
-private const val BASE_URL = "https://android-kotlin-fun-mars-server.appspot.com"
+//http://10.0.2.2:6200/api
+private const val BASE_URL = "http://10.0.2.2:6200/api/"
 
 
 private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
@@ -23,9 +25,13 @@ private val retrofit = Retrofit.Builder()
 
 
 interface SimulatorApiService {
-    @GET("realestate")
+    /*
+    @POST("command")
     fun getProperties():
-            Deferred<List<SimulatorProperty>>
+            Deferred<SimulatorProperty>
+*/
+    @GET("screenshot")
+    fun getImg():Deferred<ResponseBody>
 
 }
 
