@@ -13,7 +13,6 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //My test
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
@@ -22,13 +21,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
-        fun hello() {
-            
-        }
-        fun world() {
-
-        }
-
 
     }
 
