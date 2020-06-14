@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //My test
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
@@ -20,6 +21,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SimulatorActivity::class.java)
             startActivity(intent)
 
+        }
+        fun hello() {
+            
         }
 
 
