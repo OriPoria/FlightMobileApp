@@ -25,6 +25,9 @@ class MainActivity : AppCompatActivity() {
         fun hello() {
             
         }
+        fun world() {
+
+        }
 
 
     }
