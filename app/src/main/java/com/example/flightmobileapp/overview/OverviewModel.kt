@@ -29,20 +29,12 @@ class OverviewViewModel : ViewModel() {
         viewModelJob + Dispatchers.Main )
 
 
-    /**
-     * Call getMarsRealEstateProperties() on init so we can display status immediately.
-     */
     init {
         getSimulatorImg()
     }
 
 
-
-    /**
-     * Sets the value of the status LiveData to the Mars API status.
-     */
     fun getSimulatorImg() {
-
         coroutineScope.launch {
             //Calling getSimulator() from the SimulatorApi service creates and starts the network call on a background thread,
             // returning the Deferred object for that task.
