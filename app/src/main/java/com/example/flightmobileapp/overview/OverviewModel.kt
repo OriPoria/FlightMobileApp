@@ -54,6 +54,7 @@ class OverviewViewModel : ViewModel() {
         }
     }
 
+    //send a post request to the server
     fun sendCmd(simInfo:SimulatorProperty){
         coroutineScope.launch {
             try {
