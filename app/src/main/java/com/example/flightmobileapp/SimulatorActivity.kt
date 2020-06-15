@@ -8,6 +8,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import com.example.flightmobileapp.network.SimulatorProperty
 import com.example.flightmobileapp.overview.OverviewViewModel
 import kotlinx.android.synthetic.main.activity_simulator.*
 import kotlinx.coroutines.GlobalScope
@@ -21,7 +22,8 @@ class SimulatorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_simulator)
         setObserver()
-        var handler = Handler()
+
+        val handler = Handler()
         //add this task to the handler loop every 2 seconds to update the view
         //at the end of the task we re-add the task to the queue to work endlessly
         handler.postDelayed(object : Runnable{
