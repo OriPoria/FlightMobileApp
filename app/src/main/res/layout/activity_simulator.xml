@@ -19,20 +19,20 @@
 
     <io.github.controlwear.virtual.joystick.android.JoystickView
         android:id="@+id/joystickView_left"
-        android:layout_width="370dp"
-        android:layout_height="386dp"
+        android:layout_width="363dp"
+        android:layout_height="362dp"
         android:layout_alignParentBottom="true"
         android:layout_margin="32dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="13dp"
+        android:layout_marginBottom="28dp"
         app:JV_fixedCenter="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <io.github.controlwear.virtual.joystick.android.JoystickView
         android:id="@+id/joystickView_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="319dp"
+        android:layout_height="332dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"

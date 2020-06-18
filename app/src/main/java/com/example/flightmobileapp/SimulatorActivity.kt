@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.flightmobileapp.network.SimulatorProperty
 import com.example.flightmobileapp.overview.OverviewViewModel
+import io.github.controlwear.virtual.joystick.android.JoystickView
 import kotlinx.android.synthetic.main.activity_simulator.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -32,7 +33,11 @@ class SimulatorActivity : AppCompatActivity() {
                 handler.postDelayed(this, 2000)
             }
         },2000)
+
+
+
     }
+
 
 
     fun setObserver() {

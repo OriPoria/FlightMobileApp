@@ -2,4 +2,9 @@
     <string name="app_name">FlightMobileApp</string>
     <string name="sim_activity">In simulator activity</string>
     <string name="image_description">The image from the Simulator</string>
+    <string name="url">Type URL...</string>
+    <string name="Row"></string>
+
+
+
 </resources>

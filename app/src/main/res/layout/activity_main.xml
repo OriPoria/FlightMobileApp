@@ -43,6 +43,77 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+    <TableLayout
+        android:layout_width="442dp"
+        android:layout_height="327dp"
+        android:background="#f1f1f1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/txt1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/Row"
+                android:textAlignment="center"
+                android:textSize="48sp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/txt2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/Row"
+                android:textAlignment="center"
+                android:textSize="48sp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/txt3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/Row"
+                android:textAlignment="center"
+                android:textSize="48sp" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/txt4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/Row"
+                android:textAlignment="center"
+                android:textSize="48sp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/txt5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/Row"
+                android:textAlignment="center"
+                android:textSize="48sp" />
+        </TableRow>
+
+
+    </TableLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
