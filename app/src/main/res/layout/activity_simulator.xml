@@ -6,101 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".SimulatorActivity">
 
-
     <ImageView
         android:id="@+id/simImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:contentDescription="@string/image_description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
+
+    <io.github.controlwear.virtual.joystick.android.JoystickView
+        android:id="@+id/joystickView_left"
+        android:layout_width="363dp"
+        android:layout_height="362dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="32dp"
+        android:layout_marginBottom="28dp"
+        app:JV_fixedCenter="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <io.github.controlwear.virtual.joystick.android.JoystickView
         android:id="@+id/joystickView_right"
-        android:layout_width="181dp"
-        android:layout_height="220dp"
+        android:layout_width="319dp"
+        android:layout_height="332dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         app:JV_backgroundColor="#009688"
         app:JV_borderColor="#00796B"
         app:JV_borderWidth="8dp"
         app:JV_buttonColor="#0C0C0C"
-        app:layout_constraintBottom_toTopOf="@+id/RudderseekBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <SeekBar
-        android:id="@+id/RudderseekBar"
-        android:layout_width="80dp"
-        android:layout_height="47dp"
-        android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/RuddertextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Rudder"
-        app:layout_constraintBottom_toTopOf="@+id/RudderseekBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/ThrottletextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="276dp"
-        android:text="Throttle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/joystickView_right"
-        app:layout_constraintHorizontal_bias="0.433"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <SeekBar
-        android:id="@+id/ThrottleseekBar"
-        android:layout_width="67dp"
-        android:layout_height="117dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:rotation="90"
-        android:visibility="visible"
-        app:layout_constraintEnd_toStartOf="@+id/joystickView_right"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ThrottletextView" />
-
-    <TextView
-        android:id="@+id/ThrottleValuetextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
-        android:text="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/joystickView_right"
-        app:layout_constraintTop_toBottomOf="@+id/ThrottleseekBar"
-        app:layout_constraintVertical_bias="0.133" />
-
-    <TextView
-        android:id="@+id/RudderValueTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.169"
-        app:layout_constraintStart_toEndOf="@+id/RudderseekBar"
-        app:layout_constraintTop_toBottomOf="@+id/joystickView_right" />
-    tools:layout_editor_absoluteX="51dp"
-    tools:layout_editor_absoluteY="524dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
