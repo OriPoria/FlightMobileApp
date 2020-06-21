@@ -11,13 +11,25 @@
         android:id="@+id/simImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="24dp"
         android:contentDescription="@string/image_description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintHorizontal_bias="0.907"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <io.github.controlwear.virtual.joystick.android.JoystickView
+        android:id="@+id/joystickView_left"
+        android:layout_width="161dp"
+        android:layout_height="144dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="32dp"
+        android:layout_marginBottom="32dp"
+        app:JV_fixedCenter="false"
+        app:layout_constraintBottom_toTopOf="@+id/RuddertextView"
+        app:layout_constraintEnd_toEndOf="@+id/joystickView_right"
+        app:layout_constraintStart_toStartOf="@+id/joystickView_right" />
 
     <io.github.controlwear.virtual.joystick.android.JoystickView
         android:id="@+id/joystickView_right"
@@ -25,35 +37,39 @@
         android:layout_height="220dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="4dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="232dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
         app:JV_backgroundColor="#009688"
         app:JV_borderColor="#00796B"
         app:JV_borderWidth="8dp"
         app:JV_buttonColor="#0C0C0C"
         app:layout_constraintBottom_toTopOf="@+id/RuddertextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.172"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/simImg"
+        app:layout_constraintVertical_bias="1.0" />
 
     <SeekBar
         android:id="@+id/RudderseekBar"
         android:layout_width="80dp"
         android:layout_height="47dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/RudderValueTextView"
+        android:layout_marginBottom="44dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.224"
+        app:layout_constraintHorizontal_bias="0.184"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/RuddertextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
         android:text="Rudder"
         app:layout_constraintBottom_toTopOf="@+id/RudderseekBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.239"
+        app:layout_constraintHorizontal_bias="0.205"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -62,18 +78,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="280dp"
+        android:layout_marginBottom="276dp"
         android:text="Throttle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/joystickView_right"
-        app:layout_constraintHorizontal_bias="0.084"
+        app:layout_constraintHorizontal_bias="0.433"
         app:layout_constraintStart_toStartOf="parent" />
 
     <SeekBar
         android:id="@+id/ThrottleseekBar"
         android:layout_width="67dp"
         android:layout_height="117dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:rotation="90"
         android:visibility="visible"
@@ -95,13 +111,14 @@
 
     <TextView
         android:id="@+id/RudderValueTextView"
-        android:layout_width="11dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="176dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.169"
+        app:layout_constraintStart_toEndOf="@+id/RudderseekBar"
+        app:layout_constraintTop_toBottomOf="@+id/joystickView_right" />
     tools:layout_editor_absoluteX="51dp"
     tools:layout_editor_absoluteY="524dp" />
 

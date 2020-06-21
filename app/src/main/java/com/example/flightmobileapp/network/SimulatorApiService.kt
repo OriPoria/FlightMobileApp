@@ -16,7 +16,20 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import kotlin.Result.Companion.failure
 
+//http://10.0.2.2:6200/api
+//private const val BASE_URL = "http://10.0.2.2:6200/api/"
+
+
+//private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+
+/*private val retrof = Retrofit.Builder()
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
+    .addCallAdapterFactory(CoroutineCallAdapterFactory())
+    .baseUrl(BASE_URL)
+    .build()
+*/
 
 
 interface SimulatorApiService {
@@ -32,14 +45,14 @@ interface SimulatorApiService {
 @Throws
 fun connectServer(url:String): SimulatorApiService {
 
-    val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-    val retrofit = Retrofit.Builder()
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .addCallAdapterFactory(CoroutineCallAdapterFactory())
-        .baseUrl(url)
-        .build()
-    val simulatorApiService =  retrofit.create(SimulatorApiService::class.java)
-    return simulatorApiService
+        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+        val retrofit = Retrofit.Builder()
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .baseUrl(url)
+            .build()
+        val simulatorApiService =  retrofit.create(SimulatorApiService::class.java)
+        return simulatorApiService
 
 }
 /*

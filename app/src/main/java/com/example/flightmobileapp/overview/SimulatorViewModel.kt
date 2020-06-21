@@ -35,20 +35,20 @@ class SimulatorViewModel {
 
     constructor(s: SimulatorApiService) {
         myService = s
-       testGetImg()
+        testGetImg()
     }
     fun getSimulatorImg() {
         coroutineScope.launch {
-            //Calling getSimulator() from the SimulatorApi service creates and starts the network call on a background thread,
-            // returning the Deferred object for that task.
-            val getImgDeferred = myService.getImg()
-            try {
-                val imgResult = getImgDeferred.await()
-                _response.value = (imgResult)
+        //Calling getSimulator() from the SimulatorApi service creates and starts the network call on a background thread,
+        // returning the Deferred object for that task.
+        val getImgDeferred = myService.getImg()
+        try {
+            val imgResult = getImgDeferred.await()
+            _response.value = (imgResult)
 
-            } catch (e: Exception) {
+        } catch (e: Exception) {
 
-            }
+        }
 
         }
 
@@ -71,7 +71,7 @@ class SimulatorViewModel {
                 Log.i("msg", "post succeed")
                 Log.i("msg", msgReturned.toString())
 
-                //In case there was a bad request, and the post did'nt succeed
+            //In case there was a bad request, and the post did'nt succeed
             } catch (e: Exception) {
                 Log.i("err message", e.message.toString())
             }
@@ -86,5 +86,6 @@ class SimulatorViewModel {
         super.onCleared()
         viewModelJob.cancel()
     }
+
  */
 }

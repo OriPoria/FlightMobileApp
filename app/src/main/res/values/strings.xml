@@ -4,7 +4,7 @@
     <string name="image_description">The image from the Simulator</string>
     <string name="url">Type URL...</string>
     <string name="Row"></string>
-
+    <string name="error">Connection failure, Go back to the main menu</string>
 
 
 </resources>
