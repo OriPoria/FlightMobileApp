@@ -3,9 +3,9 @@ package com.example.flightmobileapp.network
 import com.squareup.moshi.Json
 
 data class SimulatorProperty(
-    val aileron: Double,
+    var aileron: Double,
     val rudder: Double,
-    val elevator: Double,
-    val throttle: Double
+    var elevator: Double,
+    var throttle: Double
 
 )
