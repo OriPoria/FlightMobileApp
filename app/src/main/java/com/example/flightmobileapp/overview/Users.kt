@@ -7,8 +7,7 @@ import androidx.room.Room.databaseBuilder
 //class that has only properties, that represents a table in sql lite
 @Entity(tableName = "connectors")
 data class User(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0L,
+    @PrimaryKey
     var url: String,
     val startTimeMilli: Long = System.currentTimeMillis()
 )
@@ -23,7 +22,7 @@ interface UsersDataDao {
 
 }
 
-@Database(entities = [User::class], version = 1, exportSchema = false)
+@Database(entities = [User::class], version = 2, exportSchema = false)
 abstract class UsersDataBase : RoomDatabase() {
     abstract val userDatabaseDao : UsersDataDao
 

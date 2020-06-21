@@ -4,7 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
+import com.example.flightmobileapp.network.SimulatorApiService
+import com.example.flightmobileapp.network.connectServer
+import com.example.flightmobileapp.overview.SimulatorViewModel
 import com.example.flightmobileapp.overview.User
 import com.example.flightmobileapp.overview.UsersDataBase
 import com.example.flightmobileapp.overview.UsersDataDao
@@ -29,16 +34,45 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
-        //val context: Context = applicationContext
         val db: UsersDataBase = UsersDataBase.getInstance(applicationContext)
 
-        uiSocpe.launch {
-            txt1.text = db.userDatabaseDao.getTable()[0].url
-            txt2.text = db.userDatabaseDao.getTable()[1].url
-            txt3.text = db.userDatabaseDao.getTable()[2].url
-            txt4.text = db.userDatabaseDao.getTable()[3].url
-            txt5.text = db.userDatabaseDao.getTable()[4].url
+        connectBtn.setOnClickListener {
+            val newUser = User(url.text.toString())
+            uiSocpe.launch {
+                try {
+                    db.userDatabaseDao.insert(newUser)
 
+                } catch (e : Exception) {
+                    //err if key is already in the data bsae TODO how to handle it...
+                    Log.i("msg", e.message.toString())
+                }
+            }
+            try {
+                var simulatorApiService: SimulatorApiService = connectServer(url.text.toString())
+                var viewModel : SimulatorViewModel= SimulatorViewModel(simulatorApiService)
+                val intent = Intent(this, SimulatorActivity::class.java)
+                intent.putExtra("url" ,url.text.toString())
+                startActivity(intent)
+
+            } catch (e:Exception) {
+                errMsg.text = "Connection failure"
+                errMsg.visibility = View.VISIBLE
+            }
+
+        }
+
+        //val context: Context = applicationContex
+
+        uiSocpe.launch {
+            try {
+                val users:List<User> = db.userDatabaseDao.getTable()
+                txt1.text = users[0].url
+                txt2.text = users[1].url
+                txt3.text = users[2].url
+                txt4.text = users[3].url
+                txt5.text = users[4].url
+
+            } catch (e:Exception) {}
 
 
         }
@@ -46,3 +80,13 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
+/*
+fun View.toggleVisibility() {
+    if (visibility == View.VISIBLE) {
+        visibility = View.INVISIBLE
+    } else {
+        visibility = View.VISIBLE
+    }
+}
+ */
