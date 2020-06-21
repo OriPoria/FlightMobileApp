@@ -11,7 +11,7 @@
         android:id="@+id/simImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="@string/image_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -20,35 +20,19 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <io.github.controlwear.virtual.joystick.android.JoystickView
-        android:id="@+id/joystickView_left"
-        android:layout_width="161dp"
-        android:layout_height="144dp"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="32dp"
-        android:layout_marginBottom="32dp"
-        app:JV_fixedCenter="false"
-        app:layout_constraintBottom_toTopOf="@+id/RuddertextView"
-        app:layout_constraintEnd_toEndOf="@+id/joystickView_right"
-        app:layout_constraintStart_toStartOf="@+id/joystickView_right" />
-
-    <io.github.controlwear.virtual.joystick.android.JoystickView
         android:id="@+id/joystickView_right"
         android:layout_width="181dp"
         android:layout_height="220dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="232dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="24dp"
         app:JV_backgroundColor="#009688"
         app:JV_borderColor="#00796B"
         app:JV_borderWidth="8dp"
         app:JV_buttonColor="#0C0C0C"
-        app:layout_constraintBottom_toTopOf="@+id/RuddertextView"
+        app:layout_constraintBottom_toTopOf="@+id/RudderseekBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/simImg" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <SeekBar
         android:id="@+id/RudderseekBar"
@@ -117,6 +101,6 @@
         app:layout_constraintStart_toEndOf="@+id/RudderseekBar"
         app:layout_constraintTop_toBottomOf="@+id/joystickView_right" />
     tools:layout_editor_absoluteX="51dp"
-        tools:layout_editor_absoluteY="524dp" />
+    tools:layout_editor_absoluteY="524dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
