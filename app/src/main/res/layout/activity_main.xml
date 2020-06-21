@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
         android:ems="10"
+        android:text="http://10.0.2.2:6200/api/"
         android:inputType="textPersonName"
-        android:text="http://10.0.2.2:6200"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.079"
@@ -24,100 +24,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
-        android:text="@string/connect"
+        android:text="Connect"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toEndOf="@+id/url" />
 
-    <TableLayout
-        android:layout_width="442dp"
-        android:layout_height="327dp"
-        android:background="#F1D37A"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/txt1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/Row"
-                android:textAlignment="center"
-                android:textColor="#2196F3"
-                android:textSize="28sp" />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/txt2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/Row"
-                android:textAlignment="center"
-                android:textColor="#2196F3"
-                android:textSize="28sp" />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/txt3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/Row"
-                android:textAlignment="center"
-                android:textColor="#2196F3"
-                android:textSize="28sp" />
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/txt4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/Row"
-                android:textAlignment="center"
-                android:textColor="#2196F3"
-                android:textSize="28sp" />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/txt5"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/Row"
-                android:textAlignment="center"
-                android:textColor="#2196F3"
-                android:textSize="28sp" />
-        </TableRow>
-
-
-    </TableLayout>
-
-    <TextView
-        android:id="@+id/errMsg"
+    <Button
+        android:id="@+id/btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="136dp"
-        android:text="@string/connection_failure"
-        android:textColor="#FF0000"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="340dp"
+        android:text="change activity"
+        app:layout_constraintBottom_toTopOf="@+id/url"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

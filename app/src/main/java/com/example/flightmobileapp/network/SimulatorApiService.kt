@@ -18,26 +18,33 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 
+
 interface SimulatorApiService {
     @Headers("Content-Type: application/json")
-    @POST("/api/command")
+    @POST("command")
     fun sendCommand(@Body userData: SimulatorProperty):
-            Call<ResponseBody>
+            Deferred<ResponseBody>
 
-    @GET("/screenshot")
+    @GET("screenshot")
     fun getImg():Deferred<ResponseBody>
 
 }
 @Throws
 fun connectServer(url:String): SimulatorApiService {
-        Log.i("msg", "connect server")
-        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-        val retrofit = Retrofit.Builder()
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .baseUrl(url)
-            .build()
-        val simulatorApiService =  retrofit.create(SimulatorApiService::class.java)
-        return simulatorApiService
+
+    val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    val retrofit = Retrofit.Builder()
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
+        .baseUrl(url)
+        .build()
+    val simulatorApiService =  retrofit.create(SimulatorApiService::class.java)
+    return simulatorApiService
 
 }
+/*
+object SimulatorApi {
+    val retrofitService : SimulatorApiService by lazy {
+        retrof.create(SimulatorApiService::class.java)   }
+}
+*/
