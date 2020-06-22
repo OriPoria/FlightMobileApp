@@ -26,7 +26,7 @@ class SimulatorViewModel {
     private var viewModelJob = Job()
 
     //var simulatorApiService:MutableLiveData<SimulatorApiService> = MutableLiveData()
-    lateinit var myService: SimulatorApiService
+    var myService: SimulatorApiService
 
     //Create a coroutine scope for that new job using the main dispatcher
     val coroutineScope = CoroutineScope(
@@ -35,7 +35,6 @@ class SimulatorViewModel {
 
     constructor(s: SimulatorApiService) {
         myService = s
-        testGetImg()
     }
     fun getSimulatorImg() {
         coroutineScope.launch {
@@ -51,17 +50,8 @@ class SimulatorViewModel {
         }
 
         }
-
-
     }
 
-    fun testGetImg() {
-        coroutineScope.launch {
-            val getImgDeferred = myService.getImg()
-            val imgResult = getImgDeferred.await()
-            _response.value = (imgResult)
-        }
-    }
 
     //send a post request to the server
     fun sendCmd(simInfo:SimulatorProperty){
@@ -80,12 +70,4 @@ class SimulatorViewModel {
 
     }
 
-
-/*
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
-
- */
 }

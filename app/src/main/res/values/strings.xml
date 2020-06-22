@@ -5,6 +5,7 @@
     <string name="url">Type URL...</string>
     <string name="Row"></string>
     <string name="error">Connection failure, Go back to the main menu</string>
+    <string name="connection_failure">Connection failure</string>
 
 
 </resources>

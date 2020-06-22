@@ -7,9 +7,10 @@ import androidx.room.Room.databaseBuilder
 //class that has only properties, that represents a table in sql lite
 @Entity(tableName = "connectors")
 data class User(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0L,
     var url: String,
-    val startTimeMilli: Long = System.currentTimeMillis()
+    var startTimeMilli: Long = System.currentTimeMillis()
 )
 
 @Dao
@@ -20,6 +21,12 @@ interface UsersDataDao {
     @Query("Select * from connectors ORDER BY startTimeMilli DESC LIMIT 5")
     suspend fun getTable() : List<User>
 
+
+    @Query("SELECT * FROM connectors WHERE url LIKE :url")
+    suspend fun findByUrl(url: String) : User
+
+    @Delete
+    suspend fun delete(user: User)
 }
 
 @Database(entities = [User::class], version = 2, exportSchema = false)
