@@ -48,6 +48,8 @@ class SimulatorActivity : AppCompatActivity() {
         RudderSeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
                 valueOfRudderSeekBar.text = progress.toString()
+                simulatorProperty.rudder = progress/100.toDouble()
+                vm.sendCmd(simulatorProperty)
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -76,7 +78,6 @@ class SimulatorActivity : AppCompatActivity() {
 
         })
 
-
         val handler = Handler()
         //add this task to the handler loop every 2 seconds to update the view
         //at the end of the task we re-add the task to the queue to work endlessly
@@ -102,8 +103,6 @@ class SimulatorActivity : AppCompatActivity() {
             if (abs(tempelevator - simulatorProperty.elevator) >= 0.1 ||
                 abs(tempaileron - simulatorProperty.aileron) >= 0.1
             ) {
-                // need to check if value in sliders changed more then 1%
-
                 //sendValuesToServer
                 vm.sendCmd(simulatorProperty)
             }
