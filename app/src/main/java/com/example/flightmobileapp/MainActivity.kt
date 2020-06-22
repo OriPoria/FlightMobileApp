@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.flightmobileapp.network.SimulatorApiService
 import com.example.flightmobileapp.network.connectServer
@@ -14,16 +15,13 @@ import com.example.flightmobileapp.overview.User
 import com.example.flightmobileapp.overview.UsersDataBase
 import com.example.flightmobileapp.overview.UsersDataDao
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import okhttp3.ResponseBody
 import java.lang.Exception
 
 
 class MainActivity : AppCompatActivity() {
 
- //   private var dbJob = Job()
     private val uiSocpe = CoroutineScope(Dispatchers.Main)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,32 +35,10 @@ class MainActivity : AppCompatActivity() {
         val db: UsersDataBase = UsersDataBase.getInstance(applicationContext)
 
         connectBtn.setOnClickListener {
-            val newUser = User(url.text.toString())
-            uiSocpe.launch {
-                try {
-                    db.userDatabaseDao.insert(newUser)
-
-                } catch (e : Exception) {
-                    //err if key is already in the data bsae TODO how to handle it...
-                    Log.i("msg", e.message.toString())
-                }
-            }
-            try {
-                var simulatorApiService: SimulatorApiService = connectServer(url.text.toString())
-                var viewModel : SimulatorViewModel= SimulatorViewModel(simulatorApiService)
-                val intent = Intent(this, SimulatorActivity::class.java)
-                intent.putExtra("url" ,url.text.toString())
-                startActivity(intent)
-
-            } catch (e:Exception) {
-                errMsg.text = "Connection failure"
-                errMsg.visibility = View.VISIBLE
-            }
-
+            uiSocpe.launch { connectionProcess() }
         }
 
-        //val context: Context = applicationContex
-
+        //Update the last 5 users connected
         uiSocpe.launch {
             try {
                 val users:List<User> = db.userDatabaseDao.getTable()
@@ -73,20 +49,50 @@ class MainActivity : AppCompatActivity() {
                 txt5.text = users[4].url
 
             } catch (e:Exception) {}
+        }
 
-
+        url.setOnClickListener{
+            errMsg.visibility = View.INVISIBLE
         }
 
     }
 
+    override fun onPause() {
+        super.onPause()
+    }
+    override fun onStop() {
+        super.onStop()
 }
 
-/*
-fun View.toggleVisibility() {
-    if (visibility == View.VISIBLE) {
-        visibility = View.INVISIBLE
-    } else {
-        visibility = View.VISIBLE
+
+    suspend fun connectionProcess() {
+            try {
+                var insertedUrl = url.text.toString()
+                var simulatorApiService: SimulatorApiService = connectServer(insertedUrl)
+                var response = simulatorApiService.getImg()
+                response.await()
+                //if we got the picture enter the url to the DB
+                addToDB(url.text.toString())
+
+            } catch (e:Exception) {
+                errMsg.visibility = View.VISIBLE
+                return
+            }
+        val intent = Intent(this, SimulatorActivity::class.java)
+        intent.putExtra("url" ,url.text.toString())
+        startActivity(intent)
     }
+
+    suspend fun addToDB(url : String) {
+        val db: UsersDataBase = UsersDataBase.getInstance(applicationContext)
+        val newUser = User(0,url)
+        var existUser = db.userDatabaseDao.findByUrl(url)
+            if (existUser != null) {
+                db.userDatabaseDao.delete(existUser)
+            }
+        db.userDatabaseDao.insert(newUser)
+    }
+
+
 }
- */
+
