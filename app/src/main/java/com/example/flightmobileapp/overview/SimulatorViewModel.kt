@@ -12,16 +12,21 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
+import java.net.SocketTimeoutException
 
 
 class SimulatorViewModel {
 
     // The internal MutableLiveData Img that stores the most recent response
     private val _response = MutableLiveData<ResponseBody>()
-
+    private val _isErr = MutableLiveData<Boolean>()
     // The external immutable LiveData for the response image
-    val response: LiveData<ResponseBody>
-        get() = _response
+    val response: LiveData<ResponseBody> get() = _response
+
+    // The external immutable LiveData if an error occurred
+    val err:LiveData<Boolean> get() = _isErr
+
+    var errMsg:String=""
 
     private var viewModelJob = Job()
 
@@ -29,9 +34,7 @@ class SimulatorViewModel {
     var myService: SimulatorApiService
 
     //Create a coroutine scope for that new job using the main dispatcher
-    val coroutineScope = CoroutineScope(
-        viewModelJob + Dispatchers.Main )
-
+    val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
 
     constructor(s: SimulatorApiService) {
         myService = s
@@ -44,9 +47,13 @@ class SimulatorViewModel {
         try {
             val imgResult = getImgDeferred.await()
             _response.value = (imgResult)
+            _isErr.value = false
 
         } catch (e: Exception) {
-
+            if (e.localizedMessage.toString().startsWith("timeout")) {
+                errMsg = "Connecion with the server problem: Timeout of get image"
+            } else {errMsg="Connecion with the server problem. Try to re-connect from the main menu"}
+            _isErr.value = true
         }
 
         }
@@ -59,11 +66,14 @@ class SimulatorViewModel {
             try {
                 val msgReturned = myService.sendCommand(simInfo).await()
                 Log.i("msg", "post succeed")
-                Log.i("msg", msgReturned.toString())
+                _isErr.value = false
 
             //In case there was a bad request, and the post did'nt succeed
             } catch (e: Exception) {
-                Log.i("err message", e.message.toString())
+                if (e.message.toString().startsWith("timeout")) {
+                    errMsg = "Connecion with the server problem: Timeout of send values"
+                } else {errMsg="Connecion with the server problem. Try to re-connect from the main menu"}
+                _isErr.value = true
             }
 
         }

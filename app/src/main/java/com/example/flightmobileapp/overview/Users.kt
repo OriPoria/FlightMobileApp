@@ -25,8 +25,8 @@ interface UsersDataDao {
     @Query("SELECT * FROM connectors WHERE url LIKE :url")
     suspend fun findByUrl(url: String) : User
 
-    @Delete
-    suspend fun delete(user: User)
+    @Query("DELETE FROM connectors WHERE url LIKE :url")
+    suspend fun deleteByUrl(url: String)
 }
 
 @Database(entities = [User::class], version = 2, exportSchema = false)

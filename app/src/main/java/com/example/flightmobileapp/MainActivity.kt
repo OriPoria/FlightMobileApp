@@ -27,18 +27,50 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
-        btn.setOnClickListener {
-            val intent = Intent(this, SimulatorActivity::class.java)
-            startActivity(intent)
-
-        }
-        val db: UsersDataBase = UsersDataBase.getInstance(applicationContext)
 
         connectBtn.setOnClickListener {
             uiSocpe.launch { connectionProcess() }
         }
 
+        url.setOnClickListener{
+            errMsg.visibility = View.INVISIBLE
+        }
+
+    }
+
+
+
+    suspend fun connectionProcess() {
+        try {
+
+            val insertedUrl = url.text.toString()
+            val simulatorApiService: SimulatorApiService = connectServer(insertedUrl)
+            val response = simulatorApiService.getImg()
+            response.await()
+            //if we got the picture enter the url to the DB
+            addToDB(url.text.toString())
+
+        } catch (e:Exception) {
+            errMsg.visibility = View.VISIBLE
+            return
+        }
+        //if there was not any error in the connection we move to the next activity
+        val intent = Intent(this, SimulatorActivity::class.java)
+        intent.putExtra("url" ,url.text.toString())
+        startActivity(intent)
+    }
+
+    suspend fun addToDB(url : String) {
+        val db: UsersDataBase = UsersDataBase.getInstance(applicationContext)
+        val newUser = User(0,url)
+        db.userDatabaseDao.deleteByUrl(url)
+        db.userDatabaseDao.insert(newUser)
+    }
+
+    override fun onStart() {
+        super.onStart()
         //Update the last 5 users connected
+        val db: UsersDataBase = UsersDataBase.getInstance(applicationContext)
         uiSocpe.launch {
             try {
                 val users:List<User> = db.userDatabaseDao.getTable()
@@ -50,49 +82,7 @@ class MainActivity : AppCompatActivity() {
 
             } catch (e:Exception) {}
         }
-
-        url.setOnClickListener{
-            errMsg.visibility = View.INVISIBLE
-        }
-
     }
-
-    override fun onPause() {
-        super.onPause()
-    }
-    override fun onStop() {
-        super.onStop()
-}
-
-
-    suspend fun connectionProcess() {
-            try {
-                var insertedUrl = url.text.toString()
-                var simulatorApiService: SimulatorApiService = connectServer(insertedUrl)
-                var response = simulatorApiService.getImg()
-                response.await()
-                //if we got the picture enter the url to the DB
-                addToDB(url.text.toString())
-
-            } catch (e:Exception) {
-                errMsg.visibility = View.VISIBLE
-                return
-            }
-        val intent = Intent(this, SimulatorActivity::class.java)
-        intent.putExtra("url" ,url.text.toString())
-        startActivity(intent)
-    }
-
-    suspend fun addToDB(url : String) {
-        val db: UsersDataBase = UsersDataBase.getInstance(applicationContext)
-        val newUser = User(0,url)
-        var existUser = db.userDatabaseDao.findByUrl(url)
-            if (existUser != null) {
-                db.userDatabaseDao.delete(existUser)
-            }
-        db.userDatabaseDao.insert(newUser)
-    }
-
 
 }
 

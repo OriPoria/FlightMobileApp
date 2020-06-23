@@ -8,12 +8,12 @@
 
     <EditText
         android:id="@+id/url"
-        android:text="http://10.0.2.2:6200/api/"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:text="http://10.0.2.2:6200"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.079"
@@ -24,29 +24,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
-        android:text="Connect"
+        android:text="@string/connect"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toEndOf="@+id/url" />
 
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="340dp"
-        android:text="change activity"
-        app:layout_constraintBottom_toTopOf="@+id/url"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
     <TableLayout
         android:layout_width="442dp"
         android:layout_height="327dp"
-        android:background="#f1f1f1"
+        android:background="#F1D37A"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -60,6 +47,7 @@
                 android:layout_weight="1"
                 android:text="@string/Row"
                 android:textAlignment="center"
+                android:textColor="#2196F3"
                 android:textSize="28sp" />
         </TableRow>
 
@@ -72,6 +60,7 @@
                 android:layout_weight="1"
                 android:text="@string/Row"
                 android:textAlignment="center"
+                android:textColor="#2196F3"
                 android:textSize="28sp" />
         </TableRow>
 
@@ -84,6 +73,7 @@
                 android:layout_weight="1"
                 android:text="@string/Row"
                 android:textAlignment="center"
+                android:textColor="#2196F3"
                 android:textSize="28sp" />
 
         </TableRow>
@@ -97,6 +87,7 @@
                 android:layout_weight="1"
                 android:text="@string/Row"
                 android:textAlignment="center"
+                android:textColor="#2196F3"
                 android:textSize="28sp" />
         </TableRow>
 
@@ -109,6 +100,7 @@
                 android:layout_weight="1"
                 android:text="@string/Row"
                 android:textAlignment="center"
+                android:textColor="#2196F3"
                 android:textSize="28sp" />
         </TableRow>
 
