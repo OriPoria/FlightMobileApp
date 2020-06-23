@@ -1,6 +1,7 @@
 package com.example.flightmobileapp
 
 import android.graphics.BitmapFactory
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -9,6 +10,7 @@ import android.util.Log
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.example.flightmobileapp.network.SimulatorApiService
@@ -30,6 +32,7 @@ class SimulatorActivity : AppCompatActivity() {
     lateinit var valueOfRudderSeekBar: TextView
     var simulatorProperty = SimulatorProperty(0.toDouble(), 0.toDouble(), 0.toDouble(), 0.toDouble())
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_simulator)
@@ -45,9 +48,16 @@ class SimulatorActivity : AppCompatActivity() {
 
 
         RudderSeekbar.max = 100
+        RudderSeekbar.min = -100
         RudderSeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
                 valueOfRudderSeekBar.text = progress.toString()
+                if (abs(progress - simulatorProperty.rudder) >= 0.02){
+                    simulatorProperty.throttle = progress/100.toDouble()
+                    vm.sendCmd(simulatorProperty)
+                }
+
+
                 simulatorProperty.rudder = progress/100.toDouble()
                 vm.sendCmd(simulatorProperty)
             }
@@ -66,8 +76,12 @@ class SimulatorActivity : AppCompatActivity() {
         ThrottleSeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
                 valueOfThrottleSeekBar.text = progress.toString()
-                simulatorProperty.throttle = progress/100.toDouble()
-                vm.sendCmd(simulatorProperty)
+
+                if (abs(progress/100.toDouble() - simulatorProperty.throttle) >= 0.01){
+                    simulatorProperty.throttle = progress/100.toDouble()
+                    vm.sendCmd(simulatorProperty)
+                }
+
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -77,7 +91,7 @@ class SimulatorActivity : AppCompatActivity() {
             }
 
         })
-
+/*
         val handler = Handler()
         //add this task to the handler loop every 2 seconds to update the view
         //at the end of the task we re-add the task to the queue to work endlessly
@@ -87,7 +101,7 @@ class SimulatorActivity : AppCompatActivity() {
                 handler.postDelayed(this, 2000)
             }
         }, 2000)
-
+*/
         val joystick: JoystickView = joystickView_right
         joystick.setOnMoveListener { angle, strength ->
             val rad = toRadians(angle + 0.0)
@@ -100,8 +114,8 @@ class SimulatorActivity : AppCompatActivity() {
             simulatorProperty.aileron = (simulatorProperty.aileron * strength) / 100
             simulatorProperty.elevator = (simulatorProperty.elevator * strength) / 100
 
-            if (abs(tempelevator - simulatorProperty.elevator) >= 0.1 ||
-                abs(tempaileron - simulatorProperty.aileron) >= 0.1
+            if (abs(tempelevator - simulatorProperty.elevator) >= 0.02 ||
+                abs(tempaileron - simulatorProperty.aileron) >= 0.02
             ) {
                 //sendValuesToServer
                 vm.sendCmd(simulatorProperty)

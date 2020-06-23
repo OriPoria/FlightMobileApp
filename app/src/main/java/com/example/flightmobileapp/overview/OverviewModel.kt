@@ -35,7 +35,7 @@ class SimulatorViewModel {
 
     constructor(s: SimulatorApiService) {
         myService = s
-        testGetImg()
+       testGetImg()
     }
     fun getSimulatorImg() {
         coroutineScope.launch {
