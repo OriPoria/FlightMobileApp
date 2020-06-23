@@ -6,6 +6,11 @@
     <string name="Row"></string>
     <string name="error">Connection failure, Go back to the main menu</string>
     <string name="connection_failure">Connection failure</string>
+    <string name="connect">Connect</string>
+    <string name="rudder">Rudder</string>
+    <string name="throttle">Throttle</string>
+    <string name="init_value">0</string>
+
 
 
 </resources>

@@ -20,17 +20,17 @@ import retrofit2.http.POST
 
 interface SimulatorApiService {
     @Headers("Content-Type: application/json")
-    @POST("command")
+    @POST("/api/command")
     fun sendCommand(@Body userData: SimulatorProperty):
             Deferred<ResponseBody>
 
-    @GET("screenshot")
+    @GET("/api/screenshot")
     fun getImg():Deferred<ResponseBody>
 
 }
 @Throws
 fun connectServer(url:String): SimulatorApiService {
-
+        Log.i("msg", "connect server")
         val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
         val retrofit = Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))

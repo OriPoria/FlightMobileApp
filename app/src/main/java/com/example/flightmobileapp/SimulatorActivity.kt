@@ -1,6 +1,7 @@
 package com.example.flightmobileapp
 
 import android.graphics.BitmapFactory
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -10,6 +11,7 @@ import android.view.View
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.example.flightmobileapp.network.SimulatorApiService
@@ -34,12 +36,14 @@ class SimulatorActivity : AppCompatActivity() {
 
     lateinit var vm:SimulatorViewModel
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.i("msg", "onCreate")
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_simulator)
         vm = SimulatorViewModel(connectServer(intent.getStringExtra("url")))
-        setObserver(vm)
-
+        setObservers(vm)
 
 
         ThrottleSeekbar = findViewById(R.id.ThrottleseekBar) as SeekBar
@@ -49,56 +53,42 @@ class SimulatorActivity : AppCompatActivity() {
 
 
         RudderSeekbar.max = 100
+        RudderSeekbar.min = -100
         RudderSeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
                 valueOfRudderSeekBar.text = progress.toString()
-            }
+                if (abs(progress - simulatorProperty.rudder) >= 0.02){
+                    simulatorProperty.throttle = progress/100.toDouble()
+                    vm.sendCmd(simulatorProperty)
+                }
 
-            override fun onStartTrackingTouch(p0: SeekBar?) {
 
-            }
-
-            override fun onStopTrackingTouch(p0: SeekBar?) {
-
-            }
-
-        })
-
-        ThrottleSeekbar.setSaveEnabled(false)
-        ThrottleSeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
-                valueOfThrottleSeekBar.text = progress.toString()
-                Log.i("throttle", progress.toString())
-                simulatorProperty.throttle = progress/100.toDouble()
+                simulatorProperty.rudder = progress/100.toDouble()
                 vm.sendCmd(simulatorProperty)
             }
 
-            override fun onStartTrackingTouch(p0: SeekBar?) {
+            override fun onStartTrackingTouch(p0: SeekBar?) {}
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {}
+
+        })
+        ThrottleSeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(p0: SeekBar?, progress: Int, p2: Boolean) {
+                valueOfThrottleSeekBar.text = progress.toString()
+
+                if (abs(progress/100.toDouble() - simulatorProperty.throttle) >= 0.01){
+                    simulatorProperty.throttle = progress/100.toDouble()
+                    vm.sendCmd(simulatorProperty)
+                }
+
             }
 
-            override fun onStopTrackingTouch(p0: SeekBar?) {
-            }
+            override fun onStartTrackingTouch(p0: SeekBar?) {}
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {}
 
         })
 
-/*
-        val handler = Handler()
-        //add this task to the handler loop every 2 seconds to update the view
-        //at the end of the task we re-add the task to the queue to work endlessly
-        try {
-
-            handler.postDelayed(object : Runnable {
-                override fun run() {
-                    vm.getSimulatorImg()
-                    handler.postDelayed(this, 2000)
-                }
-            }, 2000)
-
-        } catch (e :Exception) {
-            Log.i("err", e.message)
-        }
-
- */
         val joystick: JoystickView = joystickView_right
         joystick.setOnMoveListener { angle, strength ->
             val rad = toRadians(angle + 0.0)
@@ -132,39 +122,49 @@ class SimulatorActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        Log.i("msg", "onStart")
 
         //add this task to the handler loop every 2 seconds to update the view
         //at the end of the task we re-add the task to the queue to work endlessly
-        try {
+        handler.post(getImgRunnable)
 
-            handler.postDelayed(getImgRunnable, 2000)
-
-        } catch (e :Exception) {
-            Log.i("err", e.message)
-        }
     }
 
+
     override fun onStop() {
+        Log.i("msg", "onStop")
        super.onStop()
         handler.removeCallbacks(getImgRunnable)
 
     }
 
-    //good
-    override fun onPause() {
-        super.onPause()
 
+    override fun onPause() {
+        Log.i("msg", "onStop")
+        super.onPause()
     }
 
 
-    fun setObserver(vm:SimulatorViewModel) {
+    fun setObservers(vm:SimulatorViewModel) {
         val responseImg = vm.response
+        val serverErr = vm.err
         //set the image component as an observer to the changes of the response from the VM
         responseImg.observe(this, Observer<ResponseBody> { r: ResponseBody? ->
             val B = BitmapFactory.decodeStream(r?.byteStream())
             simImg.setImageBitmap(B)
         })
+        serverErr.observe(this, errorHandler)
+
     }
+
+
+    val errorHandler = Observer<Boolean> {b:Boolean? ->
+        servErr.text = vm.errMsg
+        if (b==true) {servErr.visibility = View.VISIBLE}
+        else {servErr.visibility = View.INVISIBLE}
+    }
+
+
 }
 
 
