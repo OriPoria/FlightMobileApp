@@ -2,7 +2,7 @@ package com.example.flightmobileapp.overview
 
 import android.content.Context
 import androidx.room.*
-import androidx.room.Room.databaseBuilder
+
 
 //class that has only properties, that represents a table in sql lite
 @Entity(tableName = "connectors")

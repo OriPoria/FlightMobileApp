@@ -1,13 +1,9 @@
 package com.example.flightmobileapp.overview
 
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.flightmobileapp.network.SimulatorApiService
 import com.example.flightmobileapp.network.SimulatorProperty
-//import com.example.flightmobileapp.network.retrofit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -16,7 +12,7 @@ import retrofit2.Call
 import okhttp3.ResponseBody
 import retrofit2.Callback
 import retrofit2.Response
-import java.net.SocketTimeoutException
+
 
 
 class SimulatorViewModel constructor(s: SimulatorApiService) {
