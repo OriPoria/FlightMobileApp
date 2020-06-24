@@ -1,5 +1,6 @@
 package com.example.flightmobileapp
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -33,16 +34,14 @@ class SimulatorActivity : AppCompatActivity() {
     lateinit var RudderSeekbar: SeekBar
     lateinit var valueOfRudderSeekBar: TextView
     var simulatorProperty = SimulatorProperty(0.toDouble(), 0.toDouble(), 0.toDouble(), 0.toDouble())
-
     lateinit var vm:SimulatorViewModel
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.i("msg", "onCreate")
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_simulator)
-        vm = SimulatorViewModel(connectServer(intent.getStringExtra("url")))
+        val strTyped:String?=intent.getStringExtra("url")
+        vm = SimulatorViewModel(connectServer(strTyped.toString()))
         setObservers(vm)
 
 
@@ -93,8 +92,8 @@ class SimulatorActivity : AppCompatActivity() {
         joystick.setOnMoveListener { angle, strength ->
             val rad = toRadians(angle + 0.0)
 
-            var tempelevator = simulatorProperty.elevator
-            var tempaileron = simulatorProperty.aileron
+            val tempelevator = simulatorProperty.elevator
+            val tempaileron = simulatorProperty.aileron
 
             simulatorProperty.aileron = kotlin.math.cos(rad)
             simulatorProperty.elevator = kotlin.math.sin(rad)
@@ -122,8 +121,6 @@ class SimulatorActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        Log.i("msg", "onStart")
-
         //add this task to the handler loop every 2 seconds to update the view
         //at the end of the task we re-add the task to the queue to work endlessly
         handler.post(getImgRunnable)
@@ -132,16 +129,9 @@ class SimulatorActivity : AppCompatActivity() {
 
 
     override fun onStop() {
-        Log.i("msg", "onStop")
        super.onStop()
         handler.removeCallbacks(getImgRunnable)
 
-    }
-
-
-    override fun onPause() {
-        Log.i("msg", "onStop")
-        super.onPause()
     }
 
 

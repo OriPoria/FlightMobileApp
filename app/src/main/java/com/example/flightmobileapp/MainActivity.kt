@@ -35,21 +35,17 @@ class MainActivity : AppCompatActivity() {
         url.setOnClickListener{
             errMsg.visibility = View.INVISIBLE
         }
-
     }
-
-
 
     suspend fun connectionProcess() {
         try {
-
+            addToDB(url.text.toString())
             val insertedUrl = url.text.toString()
             val simulatorApiService: SimulatorApiService = connectServer(insertedUrl)
             val response = simulatorApiService.getImg()
             response.await()
-            //if we got the picture enter the url to the DB
-            addToDB(url.text.toString())
 
+            //connection failed
         } catch (e:Exception) {
             errMsg.visibility = View.VISIBLE
             return

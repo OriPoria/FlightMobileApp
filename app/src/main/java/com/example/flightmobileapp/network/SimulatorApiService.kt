@@ -22,9 +22,9 @@ interface SimulatorApiService {
     @Headers("Content-Type: application/json")
     @POST("/api/command")
     fun sendCommand(@Body userData: SimulatorProperty):
-            Deferred<ResponseBody>
+            Call<ResponseBody>
 
-    @GET("/api/screenshot")
+    @GET("/screenshot")
     fun getImg():Deferred<ResponseBody>
 
 }
