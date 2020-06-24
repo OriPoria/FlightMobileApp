@@ -23,7 +23,7 @@
         android:id="@+id/joystickView_right"
         android:layout_width="181dp"
         android:layout_height="220dp"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="24dp"
         app:JV_backgroundColor="#009688"
@@ -115,7 +115,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
-    tools:layout_editor_absoluteX="51dp"
-    tools:layout_editor_absoluteY="524dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

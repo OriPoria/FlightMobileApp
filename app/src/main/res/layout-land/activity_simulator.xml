@@ -19,23 +19,12 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <io.github.controlwear.virtual.joystick.android.JoystickView
-        android:id="@+id/joystickView_left"
-        android:layout_width="161dp"
-        android:layout_height="144dp"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="32dp"
-        android:layout_marginBottom="32dp"
-        app:JV_fixedCenter="false"
-        app:layout_constraintBottom_toTopOf="@+id/RuddertextView"
-        app:layout_constraintEnd_toEndOf="@+id/joystickView_right"
-        app:layout_constraintStart_toStartOf="@+id/joystickView_right" />
 
     <io.github.controlwear.virtual.joystick.android.JoystickView
         android:id="@+id/joystickView_right"
         android:layout_width="181dp"
         android:layout_height="220dp"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="232dp"
@@ -125,14 +114,13 @@
         android:id="@+id/servErr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:textColor="#EF1D1D"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintStart_toStartOf="parent" />
-    tools:layout_editor_absoluteX="51dp"
-    tools:layout_editor_absoluteY="524dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
