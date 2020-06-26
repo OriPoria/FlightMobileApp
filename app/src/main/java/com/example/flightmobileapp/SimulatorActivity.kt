@@ -106,7 +106,13 @@ class SimulatorActivity : AppCompatActivity() {
     var getImgRunnable:Runnable=object:Runnable {
         override fun run() {
             vm.getSimulatorImg()
-            handler.postDelayed(this, 2000)
+            handler.postDelayed(this, 1000)
+        }
+    }
+    var setImg:Runnable=object:Runnable {
+        override fun run() {
+            vm.updateImg()
+            handler.postDelayed(this,3000)
         }
     }
 
@@ -115,6 +121,7 @@ class SimulatorActivity : AppCompatActivity() {
         //add this task to the handler loop every 2 seconds to update the view
         //at the end of the task we re-add the task to the queue to work endlessly
         handler.post(getImgRunnable)
+        handler.postDelayed(setImg,2000)
 
     }
 
@@ -122,6 +129,7 @@ class SimulatorActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         handler.removeCallbacks(getImgRunnable)
+        handler.removeCallbacks(setImg)
 
     }
 

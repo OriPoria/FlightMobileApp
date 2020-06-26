@@ -1,5 +1,7 @@
 package com.example.flightmobileapp.overview
 
+import android.os.Handler
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.flightmobileapp.network.SimulatorApiService
@@ -12,7 +14,7 @@ import retrofit2.Call
 import okhttp3.ResponseBody
 import retrofit2.Callback
 import retrofit2.Response
-
+import java.util.*
 
 
 class SimulatorViewModel constructor(s: SimulatorApiService) {
@@ -20,13 +22,16 @@ class SimulatorViewModel constructor(s: SimulatorApiService) {
     // The internal MutableLiveData Img that stores the most recent response
     private val _response = MutableLiveData<ResponseBody>()
     private val _isErr = MutableLiveData<Boolean>()
+
     // The external immutable LiveData for the response image
     val response: LiveData<ResponseBody> get() = _response
 
-    // The external immutable LiveData if an error occurred
-    val err:LiveData<Boolean> get() = _isErr
+    var myQueue: Queue<ResponseBody> = LinkedList<ResponseBody>()
 
-    var errMsg:String=""
+    // The external immutable LiveData if an error occurred
+    val err: LiveData<Boolean> get() = _isErr
+
+    var errMsg: String = ""
 
     private var viewModelJob = Job()
 
@@ -34,7 +39,20 @@ class SimulatorViewModel constructor(s: SimulatorApiService) {
     var myService: SimulatorApiService = s
 
     //Create a coroutine scope for that new job using the main dispatcher
-    val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
+    val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    fun updateImg() {
+    coroutineScope.launch {
+        val rs=myQueue.poll()
+        if (rs!= null) {
+            _response.value = rs
+        } else {
+            errMsg="Connection with the server problem: Image is not updated"
+            _isErr.value = true
+        }
+        }
+    }
+
 
     fun getSimulatorImg() {
         coroutineScope.launch {
@@ -43,7 +61,9 @@ class SimulatorViewModel constructor(s: SimulatorApiService) {
         val getImgDeferred = myService.getImg()
         try {
             val imgResult = getImgDeferred.await()
-            _response.value = (imgResult)
+            myQueue.add(imgResult)
+
+       //     _response.value = (imgResult)
             _isErr.value = false
 
 
