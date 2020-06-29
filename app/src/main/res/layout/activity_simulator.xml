@@ -108,7 +108,7 @@
         android:id="@+id/servErr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="14dp"
         android:textColor="#EF1D1D"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,7 +1,5 @@
 package com.example.flightmobileapp.overview
 
-import android.os.Handler
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.flightmobileapp.network.SimulatorApiService
@@ -47,7 +45,6 @@ class SimulatorViewModel constructor(s: SimulatorApiService) {
         if (rs!= null) {
             _response.value = rs
         } else {
-            errMsg="Connection with the server problem: Image is not updated"
             _isErr.value = true
         }
         }
@@ -62,17 +59,16 @@ class SimulatorViewModel constructor(s: SimulatorApiService) {
         try {
             val imgResult = getImgDeferred.await()
             myQueue.add(imgResult)
-
-       //     _response.value = (imgResult)
             _isErr.value = false
-
 
             //Error from server handling
         } catch (e: Exception) {
             val strErr:String? = e.localizedMessage
             if (strErr != null && strErr.startsWith("timeout")) {
-                errMsg = "Connection with the server problem: Timeout of get image"
-            } else {errMsg="Connection with the server problem. Try to re-connect from the main menu"}
+                setErrString("Timeout of get image")
+            } else {
+                setErrString("Try to re-connect from the main menu")
+            }
             _isErr.value = true
         }
 
@@ -85,7 +81,7 @@ class SimulatorViewModel constructor(s: SimulatorApiService) {
         coroutineScope.launch {
                 myService.sendCommand(simInfo).enqueue(object : Callback<ResponseBody> {
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                        errMsg = "Connection with the server problem: failure sending values"
+                        setErrString("failure sending values")
                         _isErr.value = true
                     }
                     override fun onResponse(
@@ -99,6 +95,10 @@ class SimulatorViewModel constructor(s: SimulatorApiService) {
 
         }
 
+    }
+
+    fun setErrString(str:String) {
+            errMsg = "Connection with the server problem:" + str
     }
 
 }
